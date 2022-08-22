@@ -1,29 +1,51 @@
+import React from 'react';
 import './App.css';
-import logo from './logo.svg';
+import ToDoForm from './components/ToDoForm';
+import ToDoList from './components/ToDoList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img
-          src={logo}
-          className="App-logo"
-          alt="logo"
+class App extends React.Component {
+  state = {
+    toDo: '',
+    toDoList: [],
+  };
+
+  handleChangeInput = (event) => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({ toDo: value });
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    const { toDo, toDoList } = this.state;
+    this.setState({
+      toDo: '',
+      toDoList: [
+        ...toDoList,
+        {
+          description: toDo,
+          id: `toDo-${toDoList.length}`,
+          completed: false,
+        },
+      ],
+    });
+  };
+
+  render() {
+    const { toDo, toDoList } = this.state;
+    return (
+      <div>
+        <h1>ToDo List</h1>
+        <ToDoForm
+          toDo={toDo}
+          onInputChange={this.handleChangeInput}
+          onSubmit={this.handleFormSubmit}
         />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        <ToDoList toDoList={toDoList} />
+      </div>
+    );
+  }
 }
 
 export default App;
