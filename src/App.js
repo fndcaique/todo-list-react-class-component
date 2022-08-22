@@ -23,7 +23,31 @@ class App extends React.Component {
     const { todo, todos } = this.state;
     this.setState({
       todo: '',
-      todos: [...todos, { description: todo, completed: false }],
+      todos: [
+        ...todos,
+        {
+          id: `todo-${todos.length + 1}`,
+          description: todo,
+          completed: false,
+        },
+      ],
+    });
+  };
+
+  handleStatusChange = (todoId) => {
+    this.setState((state) => {
+      const newTodos = state.todos.map((todo) => {
+        if (todo.id === todoId) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }
+        return todo;
+      });
+      return {
+        todos: newTodos,
+      };
     });
   };
 
@@ -37,7 +61,10 @@ class App extends React.Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
-        <TodoList todos={todos} />
+        <TodoList
+          todos={todos}
+          handleStatusChange={this.handleStatusChange}
+        />
       </div>
     );
   }

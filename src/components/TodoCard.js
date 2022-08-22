@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 
 export default class TodoCard extends Component {
   render() {
-    const { description, completed } = this.props;
+    const { id, description, completed, handleStatusChange } = this.props;
     return (
       <div>
         <input
-          id={'completed-todo-' + description}
+          id={id}
           type="checkbox"
-          value={completed}
+          checked={completed}
+          onChange={() => handleStatusChange(id)}
         />
-        <label htmlFor={'completed-todo-' + description}>{description}</label>
+        <label htmlFor={id}>{description}</label>
       </div>
     );
   }
