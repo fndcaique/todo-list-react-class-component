@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TodoCard from './TodoCard';
 
 export default class TodoList extends Component {
   render() {
@@ -6,7 +7,9 @@ export default class TodoList extends Component {
     return (
       <ul>
         {todos.map((todo, index) => (
-          <li key={todo + index}>{todo}</li>
+          <li key={todo.description + index}>
+            <TodoCard {...todo} />
+          </li>
         ))}
       </ul>
     );

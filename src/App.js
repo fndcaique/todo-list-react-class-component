@@ -23,7 +23,7 @@ class App extends React.Component {
     const { todo, todos } = this.state;
     this.setState({
       todo: '',
-      todos: [...todos, todo],
+      todos: [...todos, { description: todo, completed: false }],
     });
   };
 
