@@ -6,6 +6,4 @@
 
 3. Marcar tarefa como finalizada
 
-4. Ordenar tarefas
-
-5. Salvar alterações automaticamente no localStorage
+4. Salvar alterações automaticamente no localStorage
