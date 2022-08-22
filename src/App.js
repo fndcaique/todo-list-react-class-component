@@ -2,78 +2,44 @@ import React from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
-const TODOS_KEY = 'todos';
-
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo: '',
-      todos: JSON.parse(localStorage.getItem(TODOS_KEY)) || [],
+      // configure aqui os dados iniciais do estado da aplicação
+      // dica: será necessário pelo menos 2 chaves, 1 para o formulário e outra para armazenar todas as tarefas
     };
   }
 
   handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    this.setState({ todo: value });
+    // implemente aqui o código para resolver a alteração da descrição da tarefa
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { todo, todos } = this.state;
-    this.setState(
-      {
-        todo: '',
-        todos: [
-          ...todos,
-          {
-            id: `todo-${todos.length + 1}`,
-            description: todo,
-            completed: false,
-          },
-        ],
-      },
-      this.saveTodos
-    );
+    // implemente aqui o código para adicionar a tarefa preenchida no formulário para a lista com todas as tarefas e o código para resetar o formulário
   };
 
   handleStatusChange = (todoId) => {
-    this.setState((state) => {
-      const newTodos = state.todos.map((todo) => {
-        if (todo.id === todoId) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      });
-      return {
-        todos: newTodos,
-      };
-    }, this.saveTodos);
+    // implemente aqui o código para alterar o status da tarefa com o id correspondente ao id recebido via parâmetro
   };
 
   saveTodos = () => {
-    const { todos } = this.state;
-    localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
+    // [bonus] implemente aqui o código para salvar as tarefas no localStorage
   };
 
   render() {
-    const { todo, todos } = this.state;
     return (
       <div>
         <h1>Todo List</h1>
         <TodoForm
-          todo={todo}
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit}
+        // passe aqui a prop que deverá receber como valor a descrição da tarefa
+        // passe aqui a prop que deverá resolver as alterações da descrição da tarefa
+        // passe aqui a prop que irá resolver a adição da tarefa na lista
         />
         <TodoList
-          todos={todos}
-          handleStatusChange={this.handleStatusChange}
+        // passe aqui a prop que deverá receber a lista com todas as tarefas
+        // passe aqui a prop que irá resolver a alteração de status das tarefas
         />
       </div>
     );

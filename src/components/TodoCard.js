@@ -2,16 +2,25 @@ import React, { Component } from 'react';
 
 export default class TodoCard extends Component {
   render() {
-    const { id, description, completed, handleStatusChange } = this.props;
+    // const {
+    // desestruture aqui o identificador da tarefa
+    // destruture aqui a descrição da tarefa
+    // desestruture aqui o status da tarefa
+    // desestruture aqui a função que resolve a alteração de status da tarefa
+    // } = this.props;
     return (
       <div>
         <input
-          id={id}
+          // id={}
           type="checkbox"
-          checked={completed}
-          onChange={() => handleStatusChange(id)}
+          // checked={}
+          // onChange={}
         />
-        <label htmlFor={id}>{description}</label>
+        <label
+        // htmlFor={ }
+        >
+          {'descrição da tarefa'}
+        </label>
       </div>
     );
   }
