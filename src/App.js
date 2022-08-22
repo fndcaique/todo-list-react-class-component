@@ -1,11 +1,13 @@
 import React from 'react';
 import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       todo: '',
+      todos: [],
     };
   }
 
@@ -18,10 +20,15 @@ class App extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { todo, todos } = this.state;
+    this.setState({
+      todo: '',
+      todos: [...todos, todo],
+    });
   };
 
   render() {
-    const { todo } = this.state;
+    const { todo, todos } = this.state;
     return (
       <div>
         <h1>Todo List</h1>
@@ -30,6 +37,7 @@ class App extends React.Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
+        <TodoList todos={todos} />
       </div>
     );
   }
