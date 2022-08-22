@@ -2,12 +2,14 @@ import React from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
+const TODOS_KEY = 'todos';
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       todo: '',
-      todos: [],
+      todos: JSON.parse(localStorage.getItem(TODOS_KEY)) || [],
     };
   }
 
@@ -21,17 +23,20 @@ class App extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { todo, todos } = this.state;
-    this.setState({
-      todo: '',
-      todos: [
-        ...todos,
-        {
-          id: `todo-${todos.length + 1}`,
-          description: todo,
-          completed: false,
-        },
-      ],
-    });
+    this.setState(
+      {
+        todo: '',
+        todos: [
+          ...todos,
+          {
+            id: `todo-${todos.length + 1}`,
+            description: todo,
+            completed: false,
+          },
+        ],
+      },
+      this.saveTodos
+    );
   };
 
   handleStatusChange = (todoId) => {
@@ -48,7 +53,12 @@ class App extends React.Component {
       return {
         todos: newTodos,
       };
-    });
+    }, this.saveTodos);
+  };
+
+  saveTodos = () => {
+    const { todos } = this.state;
+    localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
   };
 
   render() {
